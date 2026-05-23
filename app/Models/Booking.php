@@ -6,5 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model
 {
-    protected $fillable = ['nama_tim', 'tanggal', 'jam_mulai', 'jam_selesai', 'no_hp'];
+    // Mengizinkan kolom disimpan secara massal oleh Eloquent::create()
+    protected $fillable = ['user_id', 'nama_tim', 'tanggal', 'jam_mulai', 'jam_selesai', 'no_hp'];
 }

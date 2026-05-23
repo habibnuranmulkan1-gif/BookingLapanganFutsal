@@ -6,10 +6,15 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
+            // nullable() ditambahkan agar guest bisa bebas booking saat dosen mengetes aplikasi
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
             $table->string('nama_tim');
             $table->date('tanggal');
             $table->time('jam_mulai');
@@ -19,6 +24,9 @@ return new class extends Migration
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::dropIfExists('bookings');
