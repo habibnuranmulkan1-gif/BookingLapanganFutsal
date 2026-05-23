@@ -80,7 +80,19 @@
                         <tbody>
                             @forelse($bookings as $b)
                                 <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-                                    <td class="py-3 fw-bold text-white">{{ $b->nama_tim }}</td>
+                                    <td class="py-3 text-white">
+                                        <div class="fw-bold">{{ $b->nama_tim }}</div>
+
+                                        @if($b->user)
+                                            <span class="badge bg-primary d-inline-block mt-1" style="font-size: 0.65rem; padding: 3px 8px; border-radius: 4px; box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);">
+                                                🛡️ Member: {{ $b->user->name }}
+                                            </span>
+                                        @else
+                                            <span class="badge bg-secondary d-inline-block mt-1" style="font-size: 0.65rem; padding: 3px 8px; border-radius: 4px; opacity: 0.7;">
+                                                👤 Guest Pendaftar
+                                            </span>
+                                        @endif
+                                    </td>
                                     <td class="py-3 text-secondary">{{ \Carbon\Carbon::parse($b->tanggal)->format('d M Y') }}</td>
                                     <td class="py-3 text-info fw-bold">
                                         {{ \Carbon\Carbon::parse($b->jam_mulai)->format('H:i') }} - {{ \Carbon\Carbon::parse($b->jam_selesai)->format('H:i') }} WIB

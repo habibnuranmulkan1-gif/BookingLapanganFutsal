@@ -19,13 +19,17 @@ class FutsalController extends Controller
         return view('contact');
     }
 
-    // Tampilkan Halaman Form Reservasi & Tabel Live Status
+  // Tampilkan Halaman Form Reservasi & Tabel Live Status
     public function jadwalIndex()
     {
-        $bookings = Booking::orderBy('tanggal', 'asc')->orderBy('jam_mulai', 'asc')->get();
+        $bookings = Booking::with('user')
+                            ->where('tanggal', '>=', now()->toDateString())
+                            ->orderBy('tanggal', 'asc')
+                            ->orderBy('jam_mulai', 'asc')
+                            ->get();
+
         return view('jadwal', compact('bookings'));
     }
-
     // Aksi Menyimpan Data Booking Baru (Guest Allowed)
     public function store(Request $request)
     {
